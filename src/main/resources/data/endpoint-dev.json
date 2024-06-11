@@ -1,0 +1,11 @@
+{
+  "include": [
+    "/v2/loanApplications/tawaran",
+    "/v2/digital-signing",
+    "/v2/digital-signing/initialize-payment",
+    "/v2/digital-signing/update-payment",
+    "/v2/digital-signing/{id}/get-completed-document",
+    "/v2/campaigns"
+  ],
+  "exclude": ["/v2/rayuan/layak-rayuan"]
+}

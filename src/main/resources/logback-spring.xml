@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOGS" value="./logs" />
+
+    <!-- FOR PRODUCTION -->
+    <springProperty scope="context" name="INSTRUMENTATION_KEY"
+                    source="azure.application-insights.instrumentation-key"/>
+
+    <appender name="aiAppender"
+              class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
+        <instrumentationKey>507e8b5f-b19c-4bac-8f67-7eb5e92bada6</instrumentationKey>
+    </appender>
+    <!-- FOR PRODUCTION -->
+
+    <!-- FOR STAGING ONLY -->
+    <!-- <springProperty scope="context" name="INSTRUMENTATION_KEY"
+        source="azure.application-insights.instrumentation-key" />
+
+    <appender name="aiAppender"
+        class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
+        <instrumentationKey>764a7fe8-f768-4887-a620-285a44b18e10</instrumentationKey>
+    </appender> -->
+    <!-- FOR STAGING ONLY -->
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>8MB</maxFileSize>
+            <maxHistory>50</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%16.16thread] %5level [%32.32logger{32}:%-4line] -
+                %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- FOR PRODUCTION -->
+    <logger name="com.microsoft.applicationinsights" level="INFO"/>
+    <!-- FOR PRODUCTION -->
+
+    <logger name="com.zaxxer.hikari" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+
+        <!-- FOR PRODUCTION -->
+        <appender-ref ref="aiAppender" />
+        <!-- FOR PRODUCTION -->
+
+    </root>
+
+</configuration>

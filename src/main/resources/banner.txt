@@ -1,0 +1,4 @@
+LIBRARY MANAGEMENT SYSTEM                                                             
+${application.title} ${application.version}
+Powered by Spring Boot ${spring-boot.version}
+Developed by S A F A
